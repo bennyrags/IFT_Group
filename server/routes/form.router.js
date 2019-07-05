@@ -644,7 +644,7 @@ router.get('/volunteer-cases/:id', rejectUnauthenticated, (req, res) => {
                     JOIN "primary_individual" ON "users_cases"."case_id" = "primary_individual"."case_id"
                     JOIN "cases" ON "users_cases"."case_id" = "cases"."id"
                     WHERE user_id = $1 AND "cases"."status" = $2 `;
-  pool.query(sqlText, [req.params.id], 'ACTIVE')
+  pool.query(sqlText, [req.params.id, 'ACTIVE'])
     .then((results) => {
       res.send(results.rows)
     }).catch((error) => {
